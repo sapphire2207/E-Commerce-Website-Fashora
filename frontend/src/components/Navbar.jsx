@@ -85,7 +85,7 @@ function Navbar() {
         </NavLink>
 
         <Link
-          to={"https://forever-admin-tawny.vercel.app"}
+          to={"https://fashora-admin.vercel.app"}
           target="_blank"
           className="border-2 border-gray-300 px-4 text-xs py-1 rounded-full -mt-2 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 hover:scale-105"
         >
