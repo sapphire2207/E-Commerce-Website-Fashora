@@ -65,7 +65,7 @@ function Login() {
 
         {/* Heading */}
         <h1 className="text-3xl font-bold text-gray-900 text-center mb-2">
-          Admin Panel
+          Fashora - Admin Panel
         </h1>
         <p className="text-sm text-gray-500 text-center mb-8">
           Login to manage products & orders
