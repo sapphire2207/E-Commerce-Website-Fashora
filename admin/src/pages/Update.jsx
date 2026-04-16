@@ -8,6 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductById, updateProduct } from "../store/slices/productSlice";
 import useImagePreview from "../hooks/useImagePreview";
 import { toast } from "react-toastify";
+import { startAIJob, resetAI } from "../store/slices/aiSlice";
+import useAI from "../hooks/useAI";
+import { uploadTempImages } from "../helpers/uploadApi";
+import { Loader2, Sparkles } from "lucide-react";
 
 const updateSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -28,6 +32,11 @@ function Update() {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.products?.error);
   const [oldImages, setOldImages] = useState([]);
+  const { status, result } = useAI();
+  const [aiType, setAiType] = useState(null);
+  const aiLoading = useSelector((state) => state.ai.loading);
+  const aiError = useSelector((state) => state.ai.error);
+  const aiBusy = aiLoading || status === "pending" || status === "processing";
 
   const {
     register,
@@ -75,6 +84,78 @@ function Update() {
 
     loadProduct();
   }, [id, dispatch, reset]);
+
+  const handleGenerate = async (type) => {
+    const currentImages = [image1, image2, image3, image4];
+    const selectedEntries = currentImages
+      .map((file, index) => ({ file, index }))
+      .filter(({ file }) => file instanceof File);
+
+    const hasExistingImages = oldImages.some(
+      (img) => img?.url && img?.public_id,
+    );
+
+    if (selectedEntries.length === 0 && !hasExistingImages) {
+      setAiType(null);
+      toast.error("Upload images first");
+      return;
+    }
+
+    try {
+      let uploadedImages = [];
+
+      if (selectedEntries.length > 0) {
+        const formData = new FormData();
+        selectedEntries.forEach(({ file }) => {
+          formData.append("images", file);
+        });
+
+        const res = await uploadTempImages(formData);
+        uploadedImages = res.data.data || [];
+      }
+
+      const uploadedByIndex = selectedEntries.reduce((acc, entry, idx) => {
+        acc[entry.index] = uploadedImages[idx];
+        return acc;
+      }, {});
+
+      const mergedImages = [0, 1, 2, 3]
+        .map((index) => uploadedByIndex[index] || oldImages[index])
+        .filter((img) => img?.url && img?.public_id);
+
+      if (mergedImages.length === 0) {
+        setAiType(null);
+        toast.error("Upload images first");
+        return;
+      }
+
+      setAiType(type);
+      await dispatch(startAIJob({ type, images: mergedImages })).unwrap();
+    } catch (err) {
+      setAiType(null);
+      toast.error(err || "Failed to start AI job ❌");
+    }
+  };
+
+  useEffect(() => {
+    if (status === "completed" && result?.trim()) {
+      if (aiType === "name") {
+        setValue("name", result);
+      } else {
+        setValue("description", result);
+      }
+
+      toast.success("AI generated ✨");
+      dispatch(resetAI());
+    }
+  }, [status, result, aiType, setValue, dispatch]);
+
+  useEffect(() => {
+    if (status === "failed") {
+      toast.error(aiError || "AI generation failed!");
+      dispatch(resetAI());
+    }
+  }, [status, aiError, dispatch]);
 
   const onSubmit = async (data) => {
     try {
@@ -174,7 +255,25 @@ function Update() {
 
         {/* Product Name */}
         <div>
-          <p className="font-bold mb-3 text-gray-900">Product Name</p>
+          <div className="flex items-center gap-2 mb-3">
+            <p className="font-bold text-gray-900">Product Name</p>
+            <button
+              type="button"
+              disabled={aiBusy}
+              onClick={() => handleGenerate("name")}
+              className="group relative inline-flex h-6 w-6 items-center justify-center rounded-md text-gray-500 hover:bg-purple-50 hover:text-gray-700 transition-all disabled:opacity-50"
+              aria-label="Generate with AI"
+            >
+              {aiBusy && aiType === "name" ? (
+                <Loader2 size={13} strokeWidth={2.25} className="animate-spin" />
+              ) : (
+                <Sparkles size={13} strokeWidth={2.25} />
+              )}
+              <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-purple-200 bg-white px-2.5 py-1 text-xs font-medium text-purple-700 opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100">
+                Generate with AI
+              </span>
+            </button>
+          </div>
           <input
             {...register("name")}
             className="w-full max-w-md border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 bg-white hover:border-gray-300"
@@ -188,7 +287,25 @@ function Update() {
 
         {/* Description */}
         <div>
-          <p className="font-bold mb-3 text-gray-900">Product Description</p>
+          <div className="flex items-center gap-2 mb-3">
+            <p className="font-bold text-gray-900">Product Description</p>
+            <button
+              type="button"
+              disabled={aiBusy}
+              onClick={() => handleGenerate("description")}
+              className="group relative inline-flex h-6 w-6 items-center justify-center rounded-md text-gray-500 hover:bg-purple-50 hover:text-gray-700 transition-all disabled:opacity-50"
+              aria-label="Generate with AI"
+            >
+              {aiBusy && aiType === "description" ? (
+                <Loader2 size={13} strokeWidth={2.25} className="animate-spin" />
+              ) : (
+                <Sparkles size={13} strokeWidth={2.25} />
+              )}
+              <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-purple-200 bg-white px-2.5 py-1 text-xs font-medium text-purple-700 opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100">
+                Generate with AI
+              </span>
+            </button>
+          </div>
           <textarea
             {...register("description")}
             className="w-full max-w-md border-2 border-gray-200 rounded-xl px-4 py-3 h-28 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 bg-white hover:border-gray-300"

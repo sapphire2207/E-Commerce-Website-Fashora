@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
+    "worker": "nodemon worker.js",
     "seed": "node seed/product.seed.js"
   },
   "keywords": [],
@@ -13,12 +14,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.15.0",
     "bcrypt": "^6.0.0",
+    "bullmq": "^5.74.0",
     "cloudinary": "^2.9.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "ioredis": "^5.10.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.4",
     "mongoose-aggregate-paginate-v2": "^1.1.4",

@@ -10,6 +10,9 @@ import orderRouter from "./routes/order.routes.js";
 import notificationRouter from "./routes/notification.routes.js";
 import adminRouter from "./routes/admin.routes.js";
 import webhookRouter from "./routes/webhook.routes.js";
+import "./jobs/aiWorker.js";
+import aiRouter from "./routes/ai.routes.js";
+import uploadRouter from "./routes/upload.routes.js";
 
 const app = express();
 
@@ -48,5 +51,7 @@ app.use('/api/v1/product', productRouter);
 app.use('/api/v1/cart', cartRouter);
 app.use('/api/v1/order', orderRouter)
 app.use('/api/v1/notification', notificationRouter);
+app.use("/api/v1/ai", aiRouter);
+app.use("/api/v1/upload", uploadRouter);
 
 export default app;
