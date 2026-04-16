@@ -17,16 +17,15 @@ const imageUrlToBase64 = async (url) => {
 export const generateFromImages = async (images, type) => {
   const configuredModel = process.env.GEMINI_MODEL?.trim();
   const candidateModels = [
-    configuredModel,
-    "gemini-2.5-flash",
-    "gemini-2.5-pro",
-    "gemini-1.5-flash-002",
-    "gemini-1.5-pro-002",
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-flash",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-exp",
-  ].filter(Boolean);
+  "gemini-1.5-flash", 
+  "gemini-1.5-flash-latest",
+  "gemini-1.5-flash-002",
+  "gemini-2.0-flash",
+  configuredModel,
+  "gemini-1.5-pro-002",
+  "gemini-2.5-flash",
+  "gemini-2.5-pro",
+].filter(Boolean);
 
   const prompt =
     type === "name"
