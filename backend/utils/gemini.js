@@ -17,15 +17,8 @@ const imageUrlToBase64 = async (url) => {
 export const generateFromImages = async (images, type) => {
   const configuredModel = process.env.GEMINI_MODEL?.trim();
   const candidateModels = [
-  "gemini-1.5-flash", 
-  "gemini-1.5-flash-latest",
-  "gemini-1.5-flash-002",
-  "gemini-2.0-flash",
-  configuredModel,
-  "gemini-1.5-pro-002",
-  "gemini-2.5-flash",
-  "gemini-2.5-pro",
-].filter(Boolean);
+    configuredModel,
+  ].filter(Boolean);
 
   const prompt =
     type === "name"
@@ -43,7 +36,7 @@ export const generateFromImages = async (images, type) => {
           mimeType,
         },
       };
-    })
+    }),
   );
 
   let lastError;
@@ -57,9 +50,12 @@ export const generateFromImages = async (images, type) => {
     } catch (error) {
       lastError = error;
       const message = String(error?.message || "").toLowerCase();
-      const modelMissing = error?.status === 404 || message.includes("not found");
+      const modelMissing =
+        error?.status === 404 || message.includes("not found");
       const temporarilyUnavailable =
-        error?.status === 503 || message.includes("high demand") || message.includes("unavailable");
+        error?.status === 503 ||
+        message.includes("high demand") ||
+        message.includes("unavailable");
 
       if (!modelMissing && !temporarilyUnavailable) {
         throw error;
