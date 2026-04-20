@@ -1,13 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { io } from "socket.io-client";
+import { toast } from "react-toastify";
 
 let socketInstance = null;
 
-const getUserIdFromToken = (token) => {
+const getUserIdFromAuthIdentity = (authIdentity) => {
+  if (!authIdentity) return null;
+
+  if (typeof authIdentity === "object") {
+    return authIdentity._id || authIdentity.id || null;
+  }
+
+  if (typeof authIdentity !== "string") {
+    return null;
+  }
+
+  if (!authIdentity.includes(".")) {
+    return authIdentity;
+  }
+
   try {
-    const payload = token.split(".")[1];
+    const payload = authIdentity.split(".")[1];
     const decodedPayload = JSON.parse(atob(payload));
-    return decodedPayload.id;
+    return decodedPayload.id || decodedPayload._id || null;
   } catch {
     return null;
   }
@@ -18,23 +33,37 @@ const initialState = {
   realtimeNotifications: [],
 };
 
+const getSocketServerUrl = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  if (!backendUrl) {
+    return "http://localhost:3000";
+  }
+
+  try {
+    return new URL(backendUrl).origin;
+  } catch {
+    return "http://localhost:3000";
+  }
+};
+
 export const connectSocket = (token) => (dispatch) => {
 
   if (!token || socketInstance) return;
 
-  socketInstance = io(
-    import.meta.env.VITE_BACKEND_URL?.replace("/api", "") || "http://localhost:4000",
-    {
-      withCredentials: true,
-      transports: ["websocket", "polling"],
-    }
-  );
+  socketInstance = io(getSocketServerUrl(), {
+    withCredentials: true,
+    transports: ["websocket", "polling"],
+  });
 
   socketInstance.on("connect", () => {
     dispatch(setConnected(true));
 
-    const userId = getUserIdFromToken(token);
-    if (userId) socketInstance.emit("register", userId);
+    const userId = getUserIdFromAuthIdentity(token);
+    if (userId) {
+      socketInstance.emit("register", userId);
+      console.log("Socket registered for user:", userId);
+    }
   });
 
   socketInstance.on("disconnect", () => {
@@ -43,10 +72,19 @@ export const connectSocket = (token) => (dispatch) => {
 
   socketInstance.on("notification", (data) => {
     dispatch(addRealtimeNotification(data));
+
+    const message = data?.message || "Your order status has been updated";
+    const toastId =
+      data?.orderId && data?.status
+        ? `order-status-${data.orderId}-${data.status}`
+        : undefined;
+
+    toast.info(message, { toastId });
   });
 
-  socketInstance.on("connect_error", () => {
+  socketInstance.on("connect_error", (error) => {
     dispatch(setConnected(false));
+    console.error("Socket connect_error:", error?.message || error);
   });
 };
 

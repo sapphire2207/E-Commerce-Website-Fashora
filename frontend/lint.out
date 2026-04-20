@@ -1,0 +1,80 @@
+
+> frontend@0.0.0 lint
+> eslint . --max-warnings=9999
+
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\components\RelatedProducts.jsx
+  18:6  warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\components\SearchBar.jsx
+  19:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  17 |   useEffect(() => {
+  18 |     if (location.pathname.includes("collection")) {
+> 19 |       setVisible(true);
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  20 |     } else {
+  21 |       setVisible(false);
+  22 |     }  react-hooks/set-state-in-effect
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\helpers\refreshToken.js
+  8:14  error  'error' is defined but never used  no-unused-vars
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\pages\Collection.jsx
+  21:5  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  19 |
+  20 |   useEffect(() => {
+> 21 |     setPage(1);
+     |     ^^^^^^^ Avoid calling setState() directly within an effect
+  22 |   }, [search]);
+  23 |
+  24 |   const toggleCategory = (e) => {  react-hooks/set-state-in-effect
+  58:6  warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\pages\Home.jsx
+  14:6  warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\pages\Login.jsx
+  45:6  warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\pages\Notification.jsx
+  55:6  warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\pages\Product.jsx
+  26:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  24 |   useEffect(() => {
+  25 |     if (productData?.images?.length > 0) {
+> 26 |       setImage(productData.images[0].url);
+     |       ^^^^^^^^ Avoid calling setState() directly within an effect
+  27 |     }
+  28 |   }, [productData]);
+  29 |  react-hooks/set-state-in-effect
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\pages\Register.jsx
+  55:6  warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\sreem\Desktop\Fashora\frontend\src\store\slices\authSlice.js
+  65:14  error  'error' is defined but never used  no-unused-vars
+
+✖ 11 problems (5 errors, 6 warnings)
+

@@ -69,11 +69,22 @@ const updateStatus = asyncHandler(async (req, res) => {
 
   const customerId = order.userId.toString();
 
+  console.log("Order status update request:", {
+    orderId: order._id.toString(),
+    userId: customerId,
+    status,
+  });
+
   const notificationSent = emitToUser(customerId, "notification", {
     title: notification.title,
     message: notification.message,
     orderId: order._id,
     status: order.status,
+  });
+
+  console.log("Socket notification emitted:", {
+    userId: customerId,
+    notificationSent,
   });
 
   return res

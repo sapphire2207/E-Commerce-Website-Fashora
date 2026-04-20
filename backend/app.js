@@ -20,6 +20,8 @@ const server = createServer(app);
 
 initializeSocket(server);
 
+export { server };
+
 const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(",")
   : [];

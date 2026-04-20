@@ -14,7 +14,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="space-y-1 sm:space-y-2">
       <Hero />
       <LatestCollection />
       <BestSeller />

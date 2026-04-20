@@ -154,14 +154,14 @@ function Add() {
   return (
     <form
       onSubmit={handleSubmit(onSubmitHandler)}
-      className="bg-linear-to-br from-white to-gray-50 p-8 rounded-2xl shadow-xl w-full max-w-4xl flex flex-col gap-7 border-2 border-gray-100"
+      className="admin-card w-full max-w-5xl flex flex-col gap-6 sm:gap-7 p-5 sm:p-7 lg:p-8"
     >
       <div className="mb-2">
-        <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-3">
           <span className="w-1.5 h-8 bg-linear-to-b from-orange-500 to-orange-600 rounded-full"></span>
           Add New Product
         </h2>
-        <p className="text-gray-500 text-sm mt-2 ml-7">
+        <p className="text-gray-500 text-sm mt-2 ml-7 leading-relaxed">
           Fill in the details to add a new product to your store
         </p>
       </div>
@@ -171,16 +171,16 @@ function Add() {
         <p className="font-bold mb-4 text-gray-900 flex items-center gap-2">
           <span className="text-orange-600">📸</span> Upload Images
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {[preview1, preview2, preview3, preview4].map((preview, i) => (
             <label
               key={i}
               htmlFor={`image${i + 1}`}
               className="cursor-pointer group"
             >
-              <div className="border-2 border-dashed border-gray-300 rounded-xl bg-white overflow-hidden hover:border-orange-400 hover:shadow-lg transition-all duration-300 group-hover:scale-105 relative">
+              <div className="border border-dashed border-stone-300 rounded-2xl bg-white overflow-hidden hover:border-orange-400 hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] relative">
                 <img
-                  className="w-full h-32 object-contain p-3"
+                  className="w-full h-28 sm:h-32 object-contain p-3"
                   src={!preview ? assets.upload_area : preview}
                   alt=""
                 />
@@ -190,7 +190,7 @@ function Add() {
                   </div>
                 )}
               </div>
-              <p className="text-xs text-center mt-2 text-gray-500 group-hover:text-orange-600 transition-colors">
+              <p className="text-xs text-center mt-2 text-gray-500 group-hover:text-orange-600 transition-colors font-medium">
                 {!preview ? `Image ${i + 1}` : "Uploaded"}
               </p>
               <input
@@ -221,13 +221,13 @@ function Add() {
               type="button"
               disabled={aiBusy}
               onClick={() => handleGenerate("name")}
-              className="group relative inline-flex h-6 w-6 items-center justify-center rounded-md text-gray-500 hover:bg-orange-50 hover:text-gray-700 transition-all disabled:opacity-50"
+              className="group relative inline-flex h-11 w-11 items-center justify-center rounded-xl text-gray-500 hover:bg-orange-50 hover:text-gray-700 transition-all disabled:opacity-50 border border-transparent hover:border-orange-200"
               aria-label="Generate with AI"
             >
               {aiBusy && aiType === "name" ? (
-                <Loader2 size={13} strokeWidth={2.25} className="animate-spin" />
+                <Loader2 size={15} strokeWidth={2.25} className="animate-spin force-spin" />
               ) : (
-                <Sparkles size={13} strokeWidth={2.25} />
+                <Sparkles size={15} strokeWidth={2.25} />
               )}
               <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-orange-200 bg-white px-2.5 py-1 text-xs font-medium text-orange-700 opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100">
                 Generate with AI
@@ -236,7 +236,7 @@ function Add() {
           </div>
         <input
           {...register("name")}
-          className="w-full max-w-md border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 bg-white hover:border-gray-300"
+          className="field-input w-full max-w-xl"
           type="text"
           placeholder="Enter product name"
         />
@@ -253,13 +253,13 @@ function Add() {
             type="button"
             disabled={aiBusy}
             onClick={() => handleGenerate("description")}
-            className="group relative inline-flex h-6 w-6 items-center justify-center rounded-md text-gray-500 hover:bg-orange-50 hover:text-gray-700 transition-all disabled:opacity-50"
+            className="group relative inline-flex h-11 w-11 items-center justify-center rounded-xl text-gray-500 hover:bg-orange-50 hover:text-gray-700 transition-all disabled:opacity-50 border border-transparent hover:border-orange-200"
             aria-label="Generate with AI"
           >
             {aiBusy && aiType === "description" ? (
-              <Loader2 size={13} strokeWidth={2.25} className="animate-spin" />
+              <Loader2 size={15} strokeWidth={2.25} className="animate-spin force-spin" />
             ) : (
-              <Sparkles size={13} strokeWidth={2.25} />
+              <Sparkles size={15} strokeWidth={2.25} />
             )}
             <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-orange-200 bg-white px-2.5 py-1 text-xs font-medium text-orange-700 opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100">
               Generate with AI
@@ -268,7 +268,7 @@ function Add() {
         </div>
         <textarea
           {...register("description")}
-          className="w-full max-w-md border-2 border-gray-200 rounded-xl px-4 py-3 h-28 resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 bg-white hover:border-gray-300"
+          className="field-input w-full max-w-xl h-30 resize-none"
           placeholder="Write product details and features"
         />
         {errors.description && (
@@ -279,12 +279,12 @@ function Add() {
       </div>
 
       {/* Category Row */}
-      <div className="flex flex-wrap gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
         <div>
           <p className="mb-3 font-bold text-gray-900">Category</p>
           <select
             {...register("category")}
-            className="border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 bg-white hover:border-gray-300 cursor-pointer font-medium"
+            className="field-input cursor-pointer font-medium"
           >
             <option value="Men">Men</option>
             <option value="Women">Women</option>
@@ -296,7 +296,7 @@ function Add() {
           <p className="mb-3 font-bold text-gray-900">Sub Category</p>
           <select
             {...register("subCategory")}
-            className="border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 bg-white hover:border-gray-300 cursor-pointer font-medium"
+            className="field-input cursor-pointer font-medium"
           >
             <option value="Topwear">Topwear</option>
             <option value="Bottomwear">Bottomwear</option>
@@ -308,7 +308,7 @@ function Add() {
           <p className="mb-3 font-bold text-gray-900">Price</p>
           <input
             {...register("price")}
-            className="border-2 border-gray-200 rounded-xl px-4 py-3 w-36 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 bg-white hover:border-gray-300 font-semibold"
+            className="field-input w-full md:max-w-36 font-semibold"
             type="number"
             placeholder="₹25"
           />
@@ -340,11 +340,11 @@ function Add() {
                   });
                 }
               }}
-              className={`px-6 py-2.5 rounded-xl cursor-pointer text-sm font-bold transition-all duration-300 border-2
+              className={`px-6 py-2.5 rounded-xl cursor-pointer text-sm font-bold transition-all duration-300 border min-h-11 inline-flex items-center
                 ${
                   sizes.includes(size)
                     ? "bg-linear-to-r from-orange-500 to-orange-600 text-white border-orange-500 shadow-lg scale-105"
-                    : "bg-white text-gray-700 border-gray-300 hover:border-orange-300 hover:bg-orange-50 hover:scale-105"
+                    : "bg-white text-gray-700 border-stone-300 hover:border-orange-300 hover:bg-orange-50 hover:scale-105"
                 }`}
             >
               {size}
@@ -357,7 +357,7 @@ function Add() {
       </div>
 
       {/* Bestseller */}
-      <div className="flex items-center gap-3 bg-orange-50 p-4 rounded-xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300">
+      <div className="flex items-center gap-3 bg-orange-50 p-4 rounded-xl border border-orange-200 hover:border-orange-300 transition-all duration-300">
         <input
           type="checkbox"
           id="bestSeller"
@@ -380,9 +380,9 @@ function Add() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full md:w-48 py-4 bg-linear-to-r from-gray-900 to-black text-white rounded-xl font-bold
+        className="w-full md:w-52 py-3.5 bg-linear-to-r from-gray-900 to-black text-white rounded-xl font-bold
                    hover:from-black hover:to-gray-800 transition-all duration-300 shadow-lg hover:shadow-2xl
-                   hover:scale-105 active:scale-95 uppercase tracking-wider"
+                   hover:scale-105 active:scale-95 uppercase tracking-[0.12em] min-h-11"
       >
         {loading ? "Adding..." : "Add Product"}
       </button>

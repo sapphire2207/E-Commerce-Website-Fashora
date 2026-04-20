@@ -1,13 +1,15 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import app from "./app.js";
+import { server } from "./app.js";
 import connectToDB from "./db/dbConnect.js";
+
+const port = process.env.PORT || 3000;
 
 connectToDB()
 .then(() => {
-    app.listen(process.env.PORT || 3000, () => {
-        console.log(`Server Is Listening On: ${process.env.PORT}`);
+    server.listen(port, () => {
+        console.log(`Server Is Listening On: ${port}`);
         console.log(`Socket.io Initialized`);
     })
 })

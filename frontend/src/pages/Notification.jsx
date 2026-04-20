@@ -55,20 +55,20 @@ function Notifications () {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 min-h-[70vh]">
+    <section className="section-shell px-1 sm:px-2 py-10 sm:py-12 min-h-[70vh] border-t border-stone-200/80 mt-6 sm:mt-8">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <div className="p-3 bg-orange-100 rounded-full">
+      <div className="flex items-center gap-3 mb-8 sm:mb-10">
+        <div className="p-3 bg-linear-to-br from-orange-100 to-orange-50 rounded-full border border-orange-200 shadow-sm">
           <Bell className="w-6 h-6 text-orange-600" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+        <h1 className="prata-regular text-3xl sm:text-4xl font-bold text-gray-800">
           Notifications
         </h1>
       </div>
 
       {/* Notification List */}
       {notifications.length > 0 ? (
-        <div className="space-y-5">
+        <div className="space-y-4 sm:space-y-5">
           {notifications.map((item) => {
             const statusKey = item.status
               ?.toLowerCase()
@@ -80,15 +80,15 @@ function Notifications () {
             return (
               <div
                 key={item._id}
-                className={`flex gap-4 p-5 sm:p-6 bg-white rounded-2xl border-2 shadow-md hover:shadow-xl transition ${
+                className={`flex gap-4 p-4 sm:p-6 bg-white rounded-2xl border shadow-[0_10px_24px_rgba(15,23,42,0.08)] hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] transition-all duration-300 ${
                   item.isRead
-                    ? "border-gray-100"
-                    : "border-orange-300"
+                    ? "border-stone-200"
+                    : "border-orange-300 bg-orange-50/25"
                 }`}
               >
                 {/* Icon */}
                 <div className="shrink-0 mt-1">
-                  <div className="p-3 bg-gray-100 rounded-full">
+                  <div className="p-3 bg-stone-100 rounded-full border border-stone-200">
                     {config.icon}
                   </div>
                 </div>
@@ -101,7 +101,7 @@ function Notifications () {
                     </h3>
 
                     <span
-                      className={`text-xs font-semibold px-3 py-1 rounded-full ${config.badgeStyle}`}
+                      className={`text-xs font-semibold px-3 py-1 rounded-full border ${config.badgeStyle}`}
                     >
                       {config.badge}
                     </span>
@@ -119,7 +119,7 @@ function Notifications () {
                     {!item.isRead ? (
                       <button
                         onClick={() => dispatch(markOrderNotficationAsRead({ notificationId: item._id }))}
-                        className="text-xs font-semibold px-3 py-1 rounded-full border border-orange-300 text-orange-600 hover:bg-orange-100 transition"
+                        className="text-xs font-semibold px-3 py-1 rounded-full border border-orange-300 text-orange-600 hover:bg-orange-100 transition min-h-11"
                       >
                         Mark as read
                       </button>
@@ -136,20 +136,20 @@ function Notifications () {
         </div>
       ) : (
         /* Empty State */
-        <div className="flex flex-col items-center justify-center text-center mt-24">
-          <div className="p-5 bg-orange-100 rounded-full mb-4">
+        <div className="surface-card flex flex-col items-center justify-center text-center mt-16 sm:mt-20 py-16 px-4">
+          <div className="p-5 bg-orange-100 rounded-full mb-4 border border-orange-200">
             <Bell className="w-8 h-8 text-orange-600" />
           </div>
           <h2 className="text-xl font-semibold text-gray-700">
             No Notifications Yet
           </h2>
-          <p className="text-gray-500 mt-2 max-w-md">
+          <p className="text-gray-500 mt-2 max-w-md text-sm sm:text-base leading-relaxed">
             You’ll see updates here when the admin changes your order
             status.
           </p>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

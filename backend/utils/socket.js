@@ -5,10 +5,14 @@ let io;
 
 const userSocketMap = new Map();
 
+const socketAllowedOrigins = process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(",")
+    : [];
+
 export const initializeSocket = (server) => {
     io = new Server(server, {
         cors: {
-            origin: process.env.CORS_ORIGIN,
+            origin: socketAllowedOrigins.length > 0 ? socketAllowedOrigins : true,
             credentials: true,
             methods: ["GET", "POST", "PATCH", "DELETE"],
         }

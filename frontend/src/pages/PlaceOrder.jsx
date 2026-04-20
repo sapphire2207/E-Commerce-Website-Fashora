@@ -66,22 +66,22 @@ function PlaceOrder() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col sm:flex-row justify-between gap-8 pt-5 sm:pt-14 min-h-[80vh] border-t border-gray-100 max-w-7xl mx-auto py-4 sm:px-6"
+      className="section-shell flex flex-col sm:flex-row justify-between gap-8 sm:gap-10 pt-5 sm:pt-14 min-h-[80vh] border-t border-stone-200/80 py-4 px-1 sm:px-2"
     >
       {/* Left Side */}
-      <div className="flex flex-col gap-5 w-full sm:max-w-130">
+      <div className="flex flex-col gap-5 w-full sm:max-w-lg">
         <div className="text-xl sm:text-2xl my-3">
           <Title text1={"DELIVERY"} text2={"INFORMATION"} />
         </div>
 
-        <div className="bg-linear-to-br from-white to-gray-50 p-6 sm:p-8 rounded-xl shadow-lg border-2 border-gray-100">
+        <div className="surface-card p-5 sm:p-7">
           <div className="flex gap-4 mb-5">
             <div className="flex-1 group">
               <input
                 {...register("firstName")}
                 type="text"
                 placeholder="First Name"
-                className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+                className="field-input"
               />
               {errors.firstName && (
                 <p className="text-red-500 text-sm mt-1">
@@ -94,7 +94,7 @@ function PlaceOrder() {
                 {...register("lastName")}
                 type="text"
                 placeholder="Last Name"
-                className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+                className="field-input"
               />
               {errors.lastName && (
                 <p className="text-red-500 text-sm mt-1">
@@ -109,7 +109,7 @@ function PlaceOrder() {
               {...register("email")}
               type="email"
               placeholder="Email Address"
-              className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+              className="field-input"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -123,7 +123,7 @@ function PlaceOrder() {
               {...register("street")}
               type="text"
               placeholder="Street Address"
-              className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+              className="field-input"
             />
             {errors.street && (
               <p className="text-red-500 text-sm mt-1">
@@ -137,13 +137,13 @@ function PlaceOrder() {
               {...register("city")}
               type="text"
               placeholder="City"
-              className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+              className="field-input"
             />
             <input
               {...register("state")}
               type="text"
               placeholder="State"
-              className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+              className="field-input"
             />
           </div>
 
@@ -159,13 +159,13 @@ function PlaceOrder() {
               {...register("zipcode")}
               type="number"
               placeholder="Zipcode"
-              className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+              className="field-input"
             />
             <input
               {...register("country")}
               type="text"
               placeholder="Country"
-              className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+              className="field-input"
             />
           </div>
 
@@ -184,7 +184,7 @@ function PlaceOrder() {
             {...register("phone")}
             type="number"
             placeholder="Phone Number"
-            className="border-2 border-gray-200 rounded-lg py-3 px-4 w-full focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-300 bg-white hover:border-gray-300"
+            className="field-input"
           />
           {errors.phone && (
             <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
@@ -194,11 +194,11 @@ function PlaceOrder() {
 
       {/* Right Side */}
       <div className="flex-1 mt-8 sm:mt-22.5">
-        <div className="min-w-80 max-w-130">
+        <div className="min-w-full sm:min-w-80 max-w-lg">
           <CartTotal />
         </div>
 
-        <div className="mt-12 max-w-130">
+        <div className="mt-10 sm:mt-12 max-w-lg">
           <div className="mb-6">
             <Title text1={"PAYMENT"} text2={"METHOD"} />
           </div>
@@ -207,18 +207,18 @@ function PlaceOrder() {
           <div className="flex gap-4 flex-col lg:flex-row mb-8">
             <div
               onClick={() => setMethod("stripe")}
-              className={`flex items-center gap-3 border-2 p-4 px-5 cursor-pointer rounded-xl transition-all duration-300 hover:shadow-md ${
+              className={`flex items-center gap-3 border p-4 px-5 cursor-pointer rounded-2xl transition-all duration-300 hover:shadow-md min-h-11 ${
                 method === "stripe"
-                  ? "border-orange-500 bg-orange-50 shadow-md scale-105"
-                  : "border-gray-200 bg-white hover:border-gray-300"
+                  ? "border-orange-500 bg-orange-50 shadow-md scale-[1.02]"
+                  : "border-stone-300 bg-white hover:border-stone-400"
               }`}
             >
               <div className="relative">
                 <p
-                  className={`min-w-4 h-4 border-2 rounded-full transition-all duration-300 ${
+                  className={`min-w-4 h-4 border rounded-full transition-all duration-300 ${
                     method === "stripe"
                       ? "bg-orange-500 border-orange-500 shadow-lg"
-                      : "border-gray-300"
+                      : "border-stone-300"
                   }`}
                 ></p>
                 {method === "stripe" && (
@@ -230,18 +230,18 @@ function PlaceOrder() {
 
             <div
               onClick={() => setMethod("cod")}
-              className={`flex items-center gap-3 border-2 p-4 px-5 cursor-pointer rounded-xl transition-all duration-300 hover:shadow-md ${
+              className={`flex items-center gap-3 border p-4 px-5 cursor-pointer rounded-2xl transition-all duration-300 hover:shadow-md min-h-11 ${
                 method === "cod"
-                  ? "border-orange-500 bg-orange-50 shadow-md scale-105"
-                  : "border-gray-200 bg-white hover:border-gray-300"
+                  ? "border-orange-500 bg-orange-50 shadow-md scale-[1.02]"
+                  : "border-stone-300 bg-white hover:border-stone-400"
               }`}
             >
               <div className="relative">
                 <p
-                  className={`min-w-4 h-4 border-2 rounded-full transition-all duration-300 ${
+                  className={`min-w-4 h-4 border rounded-full transition-all duration-300 ${
                     method === "cod"
                       ? "bg-orange-500 border-orange-500 shadow-lg"
-                      : "border-gray-300"
+                      : "border-stone-300"
                   }`}
                 ></p>
                 {method === "cod" && (
@@ -261,7 +261,7 @@ function PlaceOrder() {
           <div className="w-full text-end">
             <button
               type="submit"
-              className="bg-linear-to-r from-gray-900 to-black text-white px-12 py-4 text-sm font-bold rounded-xl hover:from-black hover:to-gray-800 transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-2xl uppercase tracking-wider w-full sm:w-auto"
+              className="bg-linear-to-r from-gray-900 to-black text-white px-12 py-4 text-sm font-bold rounded-xl hover:from-black hover:to-gray-800 transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-2xl uppercase tracking-[0.12em] w-full sm:w-auto min-h-11"
             >
               Place Order
             </button>

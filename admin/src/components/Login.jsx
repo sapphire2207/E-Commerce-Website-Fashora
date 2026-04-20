@@ -44,12 +44,16 @@ function Login() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-900 via-gray-800 to-black px-4">
-      <div className="bg-white/95 backdrop-blur-md shadow-2xl rounded-3xl px-10 py-12 w-full max-w-md border-2 border-gray-200">
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 sm:py-14">
+      <div className="relative admin-card w-full max-w-md px-6 sm:px-9 py-8 sm:py-10 overflow-hidden">
+        <div className="absolute -top-20 -right-16 w-44 h-44 rounded-full bg-orange-200/35 blur-3xl" />
+        <div className="absolute -bottom-20 -left-16 w-44 h-44 rounded-full bg-amber-100/40 blur-3xl" />
+
+        <div className="relative">
         {/* Icon */}
-        <div className="w-20 h-20 mx-auto mb-6 bg-linear-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+          <div className="w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-6 bg-linear-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-[0_14px_30px_rgba(234,88,12,0.34)] transform hover:scale-105 transition-transform duration-300">
           <svg
-            className="w-10 h-10 text-white"
+            className="w-9 h-9 sm:w-10 sm:h-10 text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -61,17 +65,17 @@ function Login() {
               d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
             />
           </svg>
-        </div>
+          </div>
 
         {/* Heading */}
-        <h1 className="text-3xl font-bold text-gray-900 text-center mb-2">
-          Fashora - Admin Panel
-        </h1>
-        <p className="text-sm text-gray-500 text-center mb-8">
-          Login to manage products & orders
-        </p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-2 leading-tight">
+            Fashora - Admin Panel
+          </h1>
+          <p className="text-sm text-gray-500 text-center mb-7 sm:mb-8">
+            Login to manage products & orders
+          </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Email */}
           <div>
             <label className="text-sm font-bold text-gray-800 block mb-2">
@@ -81,7 +85,7 @@ function Login() {
               {...register("email")}
               type="email"
               placeholder="krishna@gmail.com"
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300 hover:border-gray-300"
+              className="field-input"
               required
             />
           </div>
@@ -99,7 +103,7 @@ function Login() {
               {...register("password")}
               type="password"
               placeholder="radharani"
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300 hover:border-gray-300"
+              className="field-input"
               required
             />
           </div>
@@ -114,16 +118,17 @@ function Login() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full mt-6 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-300 shadow-lg
+            className={`w-full mt-6 text-white py-3 rounded-xl font-bold text-base transition-all duration-300
             ${
             loading
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-linear-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 active:scale-95"
+                : "btn-primary"
             }`}
           >
             {buttonText}
           </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

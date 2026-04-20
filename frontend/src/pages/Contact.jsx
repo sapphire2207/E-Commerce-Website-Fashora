@@ -6,27 +6,27 @@ function Contact() {
     <div className="overflow-hidden">
 
       {/* Header */}
-      <div className="text-center text-2xl pt-10 border-t border-gray-100">
+      <div className="text-center text-2xl pt-10 sm:pt-12 border-t border-stone-200/80">
         <Title text1={'CONTACT'} text2={'US'} />
       </div>
 
       {/* Content */}
-      <div className="my-16 flex flex-col justify-center md:flex-row gap-16 mb-28 px-4 sm:px-8 items-center md:items-start max-w-7xl mx-auto">
+      <div className="my-14 sm:my-16 flex flex-col justify-center md:flex-row gap-10 lg:gap-16 mb-20 sm:mb-28 section-shell px-1 sm:px-2 items-center md:items-start">
         
         {/* Image */}
-        <div className="relative group">
+        <div className="relative group w-full md:w-auto">
           <img
-            className="w-full md:max-w-130 rounded-2xl shadow-xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl border-2 border-gray-100"
+            className="w-full md:max-w-lg rounded-3xl shadow-[0_20px_40px_rgba(15,23,42,0.14)] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_24px_48px_rgba(15,23,42,0.18)] border border-stone-200"
             src={assets.contact_img}
             alt="Contact Us"
           />
-          <div className="absolute inset-0 rounded-2xl bg-linear-to-t from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="absolute inset-0 rounded-3xl bg-linear-to-t from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
 
         {/* Details */}
-        <div className="flex flex-col justify-center items-start gap-8 text-sm sm:text-base">
+        <div className="flex flex-col justify-center items-start gap-5 sm:gap-6 text-sm sm:text-base w-full md:w-auto">
           
-          <div className="bg-linear-to-br from-blue-50 to-white p-6 rounded-xl border-2 border-blue-100 w-full">
+          <div className="bg-linear-to-br from-blue-50 to-white p-5 sm:p-6 rounded-2xl border border-blue-200 w-full shadow-sm">
             <p className="font-bold text-xl text-gray-900 mb-3 flex items-center gap-2">
               <span className="text-blue-600">🏢</span> Our Store
             </p>
@@ -36,7 +36,7 @@ function Contact() {
             </p>
           </div>
 
-          <div className="bg-linear-to-br from-green-50 to-white p-6 rounded-xl border-2 border-green-100 w-full">
+          <div className="bg-linear-to-br from-green-50 to-white p-5 sm:p-6 rounded-2xl border border-green-200 w-full shadow-sm">
             <p className="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
               <span className="text-green-600">📞</span> Contact Information
             </p>
@@ -46,7 +46,7 @@ function Contact() {
             </p>
           </div>
 
-          <div className="bg-linear-to-br from-purple-50 to-white p-6 rounded-xl border-2 border-purple-100 w-full">
+          <div className="bg-linear-to-br from-purple-50 to-white p-5 sm:p-6 rounded-2xl border border-purple-200 w-full shadow-sm">
             <p className="font-bold text-xl text-gray-900 mb-3 flex items-center gap-2">
               <span className="text-purple-600">💼</span> Need Assistance?
             </p>
@@ -54,7 +54,7 @@ function Contact() {
               Our support team is here to help you with orders, returns, and style queries.
             </p>
             <button
-              className="border-2 border-purple-600 text-purple-600 px-8 py-3 text-sm font-bold rounded-xl
+              className="border border-purple-600 text-purple-600 px-8 py-3 text-sm font-bold rounded-xl min-h-11
                          hover:bg-purple-600 hover:text-white
                          transform hover:scale-105 active:scale-95
                          transition-all duration-300 shadow-md hover:shadow-lg w-full sm:w-auto"

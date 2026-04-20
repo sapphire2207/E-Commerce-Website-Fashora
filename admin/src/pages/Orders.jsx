@@ -41,13 +41,13 @@ function Orders() {
   };
 
   return (
-    <div className="p-4 md:p-6">
+    <section className="admin-card p-4 sm:p-5 lg:p-6">
       <div className="mb-8">
-        <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+        <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-3">
           <span className="w-1.5 h-8 bg-linear-to-b from-green-500 to-green-600 rounded-full"></span>
           Orders Management
         </h3>
-        <p className="text-gray-500 text-sm mt-2 ml-7">
+        <p className="text-gray-500 text-sm mt-2 ml-7 leading-relaxed">
           View and manage all customer orders
         </p>
       </div>
@@ -56,34 +56,34 @@ function Orders() {
         {orders?.map((order) => (
           <div
             key={order._id}
-            className="bg-linear-to-br from-white to-gray-50 border-2 border-gray-200 rounded-2xl p-5 md:p-6 grid
+            className="bg-linear-to-br from-white to-stone-50 border border-stone-200 rounded-2xl p-4 sm:p-5 md:p-6 grid
                        grid-cols-1 sm:grid-cols-[0.5fr_2fr]
                        lg:grid-cols-[0.5fr_2.5fr_1.5fr_1fr_1fr]
-                       gap-5 text-sm text-gray-700 shadow-md hover:shadow-xl transition-all duration-300
+                       gap-4 sm:gap-5 text-sm text-gray-700 shadow-[0_10px_20px_rgba(15,23,42,0.08)] hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] transition-all duration-300
                        hover:border-orange-200 group"
           >
             {/* Icon */}
-            <div className="bg-orange-50 rounded-xl p-3 w-fit h-fit self-start group-hover:bg-orange-100 transition-colors">
+            <div className="bg-orange-50 rounded-xl p-3 w-fit h-fit self-start group-hover:bg-orange-100 transition-colors border border-orange-200">
               <img className="w-12 h-12" src={assets.parcel_icon} alt="" />
             </div>
 
             {/* Items & Address */}
             <div>
-              <div className="text-gray-800 mb-3 bg-white p-3 rounded-lg border border-gray-100">
+              <div className="text-gray-800 mb-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-sm">
                 <p className="font-bold text-gray-900 mb-2 flex items-center gap-2">
                   <span className="text-orange-600">📦</span> Order Items
                 </p>
                 {order.items.map((item, idx) => (
                   <p key={idx} className="py-1 font-medium">
                     {item.name} × {item.quantity}
-                    <span className="text-gray-500 ml-1 text-xs bg-gray-100 px-2 py-0.5 rounded-full">
+                    <span className="text-gray-500 ml-1 text-xs bg-gray-100 border border-stone-200 px-2 py-0.5 rounded-full">
                       {item.size}
                     </span>
                   </p>
                 ))}
               </div>
 
-              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+              <div className="bg-blue-50 p-3.5 rounded-xl border border-blue-200 shadow-sm">
                 <p className="font-bold text-gray-900 mb-2 flex items-center gap-2">
                   <span className="text-blue-600">📍</span> Delivery Address
                 </p>
@@ -104,7 +104,7 @@ function Orders() {
             </div>
 
             {/* Order Info */}
-            <div className="space-y-2 bg-white p-4 rounded-lg border border-gray-100">
+            <div className="space-y-2 bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
               <p className="font-bold text-gray-900 mb-3">Order Details</p>
               <p className="flex justify-between">
                 <span className="text-gray-600">Items:</span>
@@ -119,7 +119,7 @@ function Orders() {
               <p className="flex justify-between items-center">
                 <span className="text-gray-600">Payment:</span>
                 <span
-                  className={`font-bold px-2 py-1 rounded-full text-xs ${order.payment ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+                  className={`font-bold px-2 py-1 rounded-full text-xs border ${order.payment ? "bg-green-100 text-green-700 border-green-300" : "bg-red-100 text-red-700 border-red-300"}`}
                 >
                   {order.payment ? "✓ Done" : "⏳ Pending"}
                 </span>
@@ -133,7 +133,7 @@ function Orders() {
             </div>
 
             {/* Amount */}
-            <div className="bg-linear-to-br from-orange-500 to-orange-600 p-4 rounded-lg flex flex-col justify-center items-center text-white shadow-lg w-fit h-fit self-start">
+            <div className="bg-linear-to-br from-orange-500 to-orange-600 p-4 rounded-xl flex flex-col justify-center items-center text-white shadow-lg w-fit h-fit self-start">
               <p className="text-xs font-semibold opacity-90 mb-1">
                 Total Amount
               </p>
@@ -146,8 +146,8 @@ function Orders() {
             <select
               onChange={(event) => statusHandler(event, order._id)}
               value={order.status}
-              className="w-fit min-w-40 h-fit px-4 py-3 border-2 border-gray-200 rounded-xl font-semibold
-                         bg-white hover:border-orange-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200
+              className="w-fit min-w-40 h-fit px-4 py-3 border border-stone-300 rounded-xl font-semibold min-h-11
+                         bg-white hover:border-orange-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100
                          self-start mr-3 cursor-pointer outline-none transition-all duration-300 text-gray-700
                          hover:shadow-md"
             >
@@ -163,7 +163,7 @@ function Orders() {
 
       {/* Empty State */}
       {orders.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
+        <div className="admin-card flex flex-col items-center justify-center py-16 sm:py-20 text-center mt-2 px-4">
           <div className="w-32 h-32 bg-linear-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6">
             <svg
               className="w-16 h-16 text-gray-400"
@@ -189,20 +189,18 @@ function Orders() {
       )}
 
       {pagination?.totalPages > 1 && (
-        <div className="flex justify-center items-center gap-6 mt-10">
+        <div className="flex justify-center items-center gap-2 sm:gap-6 mt-10 flex-wrap">
           {/* Prev */}
           <button
             disabled={!pagination.hasPrevPage}
             onClick={() => handlePageChange(pagination.page - 1)}
-            className="px-4 py-2 bg-gray-200 rounded-lg text-sm font-semibold
-                 disabled:opacity-50 disabled:cursor-not-allowed
-                 hover:bg-gray-300 transition"
+            className="btn-secondary px-4 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Prev
           </button>
 
           {/* Page Info */}
-          <div className="px-4 py-2 bg-gray-100 rounded-lg text-sm font-semibold text-gray-700">
+          <div className="px-4 py-2 bg-stone-100 border border-stone-200 rounded-lg text-sm font-semibold text-gray-700">
             Page <span className="text-orange-600">{pagination.page}</span> of{" "}
             {pagination.totalPages}
           </div>
@@ -211,15 +209,13 @@ function Orders() {
           <button
             disabled={!pagination.hasNextPage}
             onClick={() => handlePageChange(pagination.page + 1)}
-            className="px-4 py-2 bg-gray-200 rounded-lg text-sm font-semibold
-                 disabled:opacity-50 disabled:cursor-not-allowed
-                 hover:bg-gray-300 transition"
+            className="btn-secondary px-4 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>
         </div>
       )}
-    </div>
+    </section>
   );
 }
 

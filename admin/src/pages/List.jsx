@@ -38,13 +38,13 @@ function List() {
   };
 
   return (
-    <div className="bg-linear-to-br from-white to-gray-50 rounded-2xl shadow-xl p-6 border-2 border-gray-100">
+    <div className="admin-card p-4 sm:p-5 lg:p-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-3">
           <span className="w-1.5 h-8 bg-linear-to-b from-blue-500 to-blue-600 rounded-full"></span>
           All Products
         </h2>
-        <p className="text-gray-500 text-sm mt-2 ml-7">
+        <p className="text-gray-500 text-sm mt-2 ml-7 leading-relaxed">
           Manage your product inventory
         </p>
       </div>
@@ -52,8 +52,8 @@ function List() {
       {/* Table Header */}
       <div
         className="hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center
-                      px-5 py-3 bg-linear-to-r from-gray-100 to-gray-50 text-sm font-bold rounded-xl
-                      text-gray-700 border-2 border-gray-200 mb-3"
+                      px-5 py-3 bg-linear-to-r from-stone-100 to-stone-50 text-sm font-bold rounded-xl
+                      text-gray-700 border border-stone-200 mb-3"
       >
         <span>Image</span>
         <span>Name</span>
@@ -63,8 +63,10 @@ function List() {
       </div>
 
       {loading && (
-        <div className="flex justify-center py-16">
-          <p className="text-gray-500 font-medium">Loading products...</p>
+        <div className="py-10 sm:py-14 space-y-3">
+          <div className="skeleton h-14 w-full" />
+          <div className="skeleton h-14 w-full" />
+          <div className="skeleton h-14 w-full" />
         </div>
       )}
 
@@ -74,12 +76,12 @@ function List() {
           <div
             key={product._id}
             className="grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr]
-                       items-center gap-4 px-5 py-4 border-2 border-gray-200 rounded-xl text-sm
+                       items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 border border-stone-200 rounded-xl text-sm
                        hover:shadow-lg hover:border-orange-200 transition-all duration-300 bg-white
                        hover:scale-[1.01] group"
           >
             <img
-              className="w-14 h-14 object-cover rounded-lg border-2 border-gray-200 group-hover:border-orange-300 transition-all duration-300"
+              className="w-14 h-14 object-cover rounded-lg border border-stone-200 group-hover:border-orange-300 transition-all duration-300"
               src={product.images?.[0]?.url}
               alt=""
             />
@@ -90,7 +92,7 @@ function List() {
 
             <p className="text-gray-600 font-medium">
               <span className="hidden md:inline">{product.category}</span>
-              <span className="md:hidden text-xs bg-gray-100 px-2 py-1 rounded-full">
+              <span className="md:hidden text-xs bg-gray-100 px-2 py-1 rounded-full border border-stone-200">
                 {product.category}
               </span>
             </p>
@@ -104,7 +106,7 @@ function List() {
               {/* Edit */}
               <button
                 onClick={() => navigate(`/update/${product._id}`)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold text-xs
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold text-xs min-h-11
                            hover:bg-blue-600 transition-all duration-300 hover:scale-110 active:scale-95
                            shadow-md hover:shadow-lg"
                 title="Edit Product"
@@ -118,7 +120,7 @@ function List() {
                   e.stopPropagation();
                   handleDelete(product._id);
                 }}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold text-xs
+                className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold text-xs min-h-11
                            hover:bg-red-600 transition-all duration-300 hover:scale-110 active:scale-95
                            shadow-md hover:shadow-lg"
                 title="Delete Product"
@@ -132,8 +134,8 @@ function List() {
 
       {/* Empty State */}
       {products.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+        <div className="admin-card flex flex-col items-center justify-center py-14 sm:py-16 text-center mt-2 px-4">
+          <div className="w-24 h-24 bg-stone-100 rounded-full flex items-center justify-center mb-4">
             <svg
               className="w-12 h-12 text-gray-400"
               fill="none"
@@ -158,20 +160,18 @@ function List() {
       )}
 
       {pagination?.totalPages > 1 && (
-        <div className="flex justify-center items-center gap-6 mt-8">
+        <div className="flex justify-center items-center gap-2 sm:gap-6 mt-8 flex-wrap">
           {/* Prev Button */}
           <button
             disabled={!pagination.hasPrevPage}
             onClick={() => handlePageChange(pagination.page - 1)}
-            className="px-4 py-2 bg-gray-200 rounded-lg text-sm font-semibold
-                 disabled:opacity-50 disabled:cursor-not-allowed
-                 hover:bg-gray-300 transition"
+            className="btn-secondary px-4 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Prev
           </button>
 
           {/* Page Info */}
-          <div className="text-sm font-semibold text-gray-700">
+          <div className="text-sm font-semibold text-gray-700 px-2 py-1.5 rounded-lg bg-stone-100 border border-stone-200">
             Page <span className="text-orange-600">{pagination.page}</span> of{" "}
             <span className="text-gray-900">{pagination.totalPages}</span>
           </div>
@@ -180,9 +180,7 @@ function List() {
           <button
             disabled={!pagination.hasNextPage}
             onClick={() => handlePageChange(pagination.page + 1)}
-            className="px-4 py-2 bg-gray-200 rounded-lg text-sm font-semibold
-                 disabled:opacity-50 disabled:cursor-not-allowed
-                 hover:bg-gray-300 transition"
+            className="btn-secondary px-4 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>

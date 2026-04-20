@@ -13,40 +13,39 @@ function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 border-b-2 border-gray-200 bg-white sticky top-0 z-30 shadow-md">
-      {/* Logo */}
-      <div className="flex items-center gap-3">
-        <NavLink to="/" className="group">
-          <div className="flex flex-col items-center leading-none select-none cursor-pointer">
-            <span className="font-serif text-[26px] font-bold tracking-[5px] text-[#1c1c1c] uppercase transition-colors duration-300 group-hover:text-orange-600">
-              FASHORA
-            </span>
+    <header className="sticky top-0 z-30">
+      <div className="admin-glass flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border border-stone-200 rounded-[20px] shadow-[0_12px_30px_rgba(15,23,42,0.09)]">
+        {/* Logo */}
+        <div className="flex items-center gap-3 sm:gap-4">
+          <NavLink to="/" className="group focusable-ring rounded-lg">
+            <div className="flex flex-col items-center leading-none select-none cursor-pointer">
+              <span className="font-serif text-[24px] sm:text-[26px] font-bold tracking-[4px] sm:tracking-[5px] text-[#1c1c1c] uppercase transition-colors duration-300 group-hover:text-orange-600">
+                FASHORA
+              </span>
 
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <div className="w-7 h-px bg-[#c9a84c]" />
-              <div className="w-1 h-1 bg-[#c9a84c] rotate-45" />
-              <div className="w-7 h-px bg-[#c9a84c]" />
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <div className="w-7 h-px bg-[#c9a84c]" />
+                <div className="w-1 h-1 bg-[#c9a84c] rotate-45" />
+                <div className="w-7 h-px bg-[#c9a84c]" />
+              </div>
             </div>
+          </NavLink>
+          <div className="hidden sm:flex items-center gap-2 bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold px-3 py-1.5 rounded-full tracking-[0.14em]">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+            ADMIN
           </div>
-        </NavLink>
-        <span className="hidden sm:block text-xs font-bold text-gray-500 bg-orange-100 px-3 py-1 rounded-full">
-          ADMIN
-        </span>
-      </div>
+        </div>
 
-      {/* Logout Button */}
-      <button
-        disabled={loading}
-        onClick={handleLogout}
-        className="bg-linear-to-r from-red-500 to-red-600 text-white
-                   px-6 py-2.5 rounded-xl text-sm font-bold
-                   hover:from-red-600 hover:to-red-700
-                   transform hover:scale-105 active:scale-95
-                   transition-all duration-300 shadow-md hover:shadow-lg"
-      >
-        Logout
-      </button>
-    </div>
+        {/* Logout Button */}
+        <button
+          disabled={loading}
+          onClick={handleLogout}
+          className="btn-danger px-4 sm:px-6 py-2.5 text-sm"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
   );
 }
 

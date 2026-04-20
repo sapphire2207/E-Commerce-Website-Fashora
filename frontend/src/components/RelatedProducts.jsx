@@ -18,11 +18,11 @@ function RelatedProducts({ category, subCategory, productId }) {
   }, [category, subCategory, productId]);
 
   return (
-    <div className="my-24">
-      <div className="text-center text-3xl py-2">
+    <section className="my-18 sm:my-22 section-shell px-1 sm:px-2">
+      <div className="text-center text-3xl py-3">
         <Title text1={"RELATED"} text2={"PRODUCTS"} />
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+      <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 gap-y-6 sm:gap-y-8">
         {relatedProducts.map((item) => (
           <ProductItem
             key={item._id}
@@ -33,7 +33,7 @@ function RelatedProducts({ category, subCategory, productId }) {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
